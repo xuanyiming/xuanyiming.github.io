@@ -7,15 +7,15 @@
   
   <title>agc032d | xuanyiming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="题意：给出一个$1-n$的排列，每次可以选择一个区间$l,r$，并且选择一个操作： 1.将区间循环往前移动，消耗$A$。 2.将区间循环往后移动，消耗$B$。">
-<meta name="keywords" content="atcoder">
+  <meta name="description" content="要求构造一个$n \times n$的矩阵，要求对于两个相邻的格子的值$(x,y)$，$max(x,y) mod min(x,y)$全部相同。 $n \leq 500$">
+<meta name="keywords" content="构造">
 <meta property="og:type" content="article">
 <meta property="og:title" content="agc032d">
 <meta property="og:url" content="http:&#x2F;&#x2F;xuanyiming.github.io&#x2F;2019&#x2F;11&#x2F;05&#x2F;agc032d&#x2F;index.html">
 <meta property="og:site_name" content="xuanyiming">
-<meta property="og:description" content="题意：给出一个$1-n$的排列，每次可以选择一个区间$l,r$，并且选择一个操作： 1.将区间循环往前移动，消耗$A$。 2.将区间循环往后移动，消耗$B$。">
+<meta property="og:description" content="要求构造一个$n \times n$的矩阵，要求对于两个相邻的格子的值$(x,y)$，$max(x,y) mod min(x,y)$全部相同。 $n \leq 500$">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-06T05:10:46.372Z">
+<meta property="og:updated_time" content="2019-11-06T08:25:57.583Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="xuanyiming" type="application/atom+xml">
@@ -85,30 +85,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p> 题意：给出一个$1-n$的排列，每次可以选择一个区间$l,r$，并且选择一个操作：</p>
-<p>1.将区间循环往前移动，消耗$A$。</p>
-<p>2.将区间循环往后移动，消耗$B$。</p>
+        <p>要求构造一个$n \times n$的矩阵，要求对于两个相邻的格子的值$(x,y)$，$max(x,y) mod min(x,y)$全部相同。</p>
+<p>$n \leq 500$</p>
 <a id="more"></a> 
-<p>问将序列排序最小消耗。</p>
-<p>考虑给出的操作为：消耗$A$，把一个数移动到比他大一个坐标(可以实数)。消耗$B$，把一个数移动到比他小的坐标。</p>
-<p>那么设$i$一开始在$x_i$,最后在$x’_i$，那么贡献为：</p>
-<p>1.$x_i&lt;x’_i:A$</p>
-<p>2.$x_i&gt;x’_i:B$</p>
-<p>3.$x_i=x’_i:0$</p>
-<p>考虑到实数坐标，我们可以添加$(-inf,1),(1,2),(2,3)…(n,inf)$这$n+1$个区间。</p>
-<p>然后$dp_{x,y}$表示考虑了$x$个数，目前在$y$这个区间。</p>
-<p>前缀和优化dp即可。</p>
-<p>时间复杂度$O(n^2)$</p>
-<p>code:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int long long </span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">5005</span>;</span><br><span class="line"><span class="keyword">int</span> n,A,B,dp[N][N*<span class="number">2</span>],g[N][N*<span class="number">2</span>],p[N],q[N];</span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld%lld%lld"</span>,&amp;n,&amp;A,&amp;B);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;p[i]);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)q[p[i]]=i;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=<span class="number">2</span>*n+<span class="number">1</span>;j++)&#123;</span><br><span class="line">			<span class="keyword">if</span> (j%<span class="number">2</span>==<span class="number">0</span>)dp[i][j]=g[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">			<span class="keyword">else</span> dp[i][j]=g[i<span class="number">-1</span>][j];</span><br><span class="line">			<span class="keyword">if</span> (j&lt;q[i]*<span class="number">2</span>)dp[i][j]+=B;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (j&gt;q[i]*<span class="number">2</span>)dp[i][j]+=A;</span><br><span class="line">			g[i][j]=<span class="built_in">min</span>(dp[i][j],(j==<span class="number">1</span>?<span class="number">1000000000000000000l</span>l:g[i][j<span class="number">-1</span>]));</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,g[n][<span class="number">2</span>*n+<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先考虑如何全部相同。</p>
+<p>将矩阵黑白染色。白色的格子填上数，黑色的格子为相邻的$4$个格子的$lcm+1$。</p>
+<p>但这样数值可能很大。</p>
+<p>将每一个斜线编号。这个斜线的权值第编号个质数。</p>
+<p>白色格子的权值即为两个斜线的权值之成绩。</p>
+<p>容易证明这是合法的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int long long</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">1005</span>;</span><br><span class="line"><span class="keyword">int</span> a[N][N],flag[N*<span class="number">10</span>],P[N*<span class="number">10</span>],tot,n; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">check1</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (x+y)/<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">check2</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (x-y+n+<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Lcm</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!x||!y)<span class="keyword">return</span> x+y;</span><br><span class="line">	<span class="keyword">return</span> x/__gcd(x,y)*y;</span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">if</span> (n==<span class="number">2</span>)&#123;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"2 3"</span>);</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"5 16"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=<span class="number">10000</span>;i++)</span><br><span class="line">		<span class="keyword">if</span> (!flag[i])<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">2</span>*i;j&lt;=<span class="number">10000</span>;j+=i)flag[j]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=<span class="number">10000</span>;i++)</span><br><span class="line">		<span class="keyword">if</span> (!flag[i])P[++tot]=i;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">			<span class="keyword">if</span> ((i+j)%<span class="number">2</span>==<span class="number">1</span>)a[i][j]=P[check1(i,j)]*P[check2(i,j)+n+<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">			<span class="keyword">if</span> ((i+j)%<span class="number">2</span>==<span class="number">0</span>)a[i][j]=Lcm(Lcm(a[i+<span class="number">1</span>][j],a[i<span class="number">-1</span>][j]),Lcm(a[i][j<span class="number">-1</span>],a[i][j+<span class="number">1</span>]))+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)<span class="built_in">printf</span>(<span class="string">"%lld "</span>,a[i][j]);</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuanyiming.github.io/2019/11/05/agc032d/" data-id="ck2n0ci5200005getfql4hswl" class="article-share-link">Share</a>
+      <a data-url="http://xuanyiming.github.io/2019/11/05/agc032d/" data-id="ck2n0pvd000018setas2je07u" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/atcoder/" rel="tag">atcoder</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9E%84%E9%80%A0/" rel="tag">构造</a></li></ul>
 
     </footer>
   </div>
@@ -120,7 +114,7 @@
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          agc032d
+          agc027d
         
       </div>
     </a>
@@ -142,7 +136,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/atcoder/" rel="tag">atcoder</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/dp/" rel="tag">dp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%84%E9%80%A0/" rel="tag">构造</a></li></ul>
     </div>
   </div>
 
@@ -152,7 +146,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/atcoder/" style="font-size: 10px;">atcoder</a>
+      <a href="/tags/dp/" style="font-size: 10px;">dp</a> <a href="/tags/%E6%9E%84%E9%80%A0/" style="font-size: 10px;">构造</a>
     </div>
   </div>
 
@@ -174,7 +168,7 @@
       <ul>
         
           <li>
-            <a href="/2019/11/06/agc027d/">agc032d</a>
+            <a href="/2019/11/06/agc027d/">agc027d</a>
           </li>
         
           <li>
@@ -220,21 +214,5 @@
 
 
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<!--script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
