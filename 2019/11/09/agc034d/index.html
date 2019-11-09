@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>agc034d | xuanyiming</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在平面上有一些蓝点和红点，要把蓝点和红点匹配。$(x1,y1)$这个红点和$(x2,y2)$这个蓝点匹配的权值为他们的曼哈顿距离最大值，求距离总和的最大值。">
+<meta name="keywords" content="费用流">
+<meta property="og:type" content="article">
+<meta property="og:title" content="agc034d">
+<meta property="og:url" content="http:&#x2F;&#x2F;xuanyiming.github.io&#x2F;2019&#x2F;11&#x2F;09&#x2F;agc034d&#x2F;index.html">
+<meta property="og:site_name" content="xuanyiming">
+<meta property="og:description" content="在平面上有一些蓝点和红点，要把蓝点和红点匹配。$(x1,y1)$这个红点和$(x2,y2)$这个蓝点匹配的权值为他们的曼哈顿距离最大值，求距离总和的最大值。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-09T08:40:39.566Z">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="xuanyiming" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">xuanyiming</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://xuanyiming.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-agc034d" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/09/agc034d/" class="article-date">
+  <time datetime="2019-11-09T08:37:48.430Z" itemprop="datePublished">2019-11-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      agc034d
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在平面上有一些蓝点和红点，要把蓝点和红点匹配。$(x1,y1)$这个红点和$(x2,y2)$这个蓝点匹配的权值为他们的曼哈顿距离最大值，求距离总和的最大值。</p>
+<a id="more"></a> 
+<p>$n \leq 1000$。</p>
+<p>考虑$max$显然就把四种正负取$max$之和。</p>
+<p>把每一个点拆成四个，然后跑费用流。</p>
+<p>时间复杂度：$O(能过 )$。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int long long</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">20005</span>,INF=<span class="number">1e18</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x,y,w,c;</span><br><span class="line">	Node(<span class="keyword">int</span> xx=<span class="number">0</span>,<span class="keyword">int</span> yy=<span class="number">0</span>,<span class="keyword">int</span> ww=<span class="number">0</span>,<span class="keyword">int</span> cc=<span class="number">0</span>)&#123;</span><br><span class="line">		x=xx;y=yy;w=ww;c=cc;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; Edge[N*<span class="number">8</span>];</span><br><span class="line"><span class="keyword">int</span> n,v1[N],v2[N],s,t,a[N],root1,root2,x,y,m;</span><br><span class="line"><span class="keyword">int</span> stot,nxt[N*<span class="number">8</span>],fa1[N],fa2[N],fi1[N],ne1[N],zz1[N],fi2[N],ne2[N],zz2[N],tot1,tot2,head[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">jb</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span> w,<span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">	Edge[++stot]=Node(x,y,w,c);</span><br><span class="line">	nxt[stot]=head[x];</span><br><span class="line">	head[x]=stot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">jb2</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span> w,<span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">	jb(x,y,w,c);</span><br><span class="line">	jb(y,x,<span class="number">0</span>,-c);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> d[N];</span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line"><span class="keyword">bool</span> inq[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">spfa</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=t;i++) d[i]=INF,inq[i]=<span class="number">0</span>;</span><br><span class="line">	d[s]=<span class="number">0</span>;q.push(s);inq[s]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (!q.empty())&#123;</span><br><span class="line">		<span class="keyword">int</span> x=q.front();q.pop();inq[x]=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> i=head[x];i;i=nxt[i])</span><br><span class="line">		  	<span class="keyword">if</span> (Edge[i].w&gt;<span class="number">0</span>&amp;&amp;d[x]+Edge[i].c&lt;d[Edge[i].y])&#123;</span><br><span class="line">		  		d[Edge[i].y]=d[x]+Edge[i].c;</span><br><span class="line">		  		<span class="keyword">if</span> (!inq[Edge[i].y])&#123;</span><br><span class="line">		  			inq[Edge[i].y]=<span class="number">1</span>;</span><br><span class="line">		  			q.push(Edge[i].y);</span><br><span class="line">		  		&#125;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> d[t]&lt;INF;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> hd[N],Flag[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">anti</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (x&amp;<span class="number">1</span>)? x+<span class="number">1</span>:x<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">bool</span> vis[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> now,<span class="keyword">int</span> flow)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (now==t) <span class="keyword">return</span> flow;</span><br><span class="line">	<span class="keyword">int</span> usd=<span class="number">0</span>;	</span><br><span class="line">	vis[now]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> &amp;i=hd[now];i;i=nxt[i])</span><br><span class="line">	  	<span class="keyword">if</span> (!vis[Edge[i].y]&amp;&amp;Edge[i].w&gt;<span class="number">0</span>&amp;&amp;d[Edge[i].y]==d[now]+Edge[i].c)&#123;</span><br><span class="line">	  		<span class="keyword">int</span> w=dfs(Edge[i].y,<span class="built_in">min</span>(Edge[i].w,flow-usd));</span><br><span class="line">	  		Edge[i].w-=w;Edge[anti(i)].w+=w;usd+=w;</span><br><span class="line">	  		<span class="keyword">if</span> (usd==flow) <span class="keyword">break</span>;</span><br><span class="line">	  	&#125;</span><br><span class="line">	vis[now]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (!usd)d[now]=INF;</span><br><span class="line">	<span class="keyword">return</span> usd;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> answ,z,f[N],f1[N],f2[N],ansc;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">mcmf</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> tmp;</span><br><span class="line">	<span class="keyword">while</span> (spfa())&#123;</span><br><span class="line">		<span class="built_in">memcpy</span>(hd,head,<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*(t+<span class="number">2</span>));</span><br><span class="line">		tmp=dfs(s,INF),answ+=tmp,ansc+=tmp*d[t];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;n);</span><br><span class="line">	s=<span class="number">0</span>;t=n*<span class="number">10</span>+<span class="number">5</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lld%lld%lld"</span>,&amp;x,&amp;y,&amp;z);</span><br><span class="line">		jb2(s,i,z,<span class="number">0</span>);</span><br><span class="line">		jb2(i,i+n,z,x+y);jb2(i+n,<span class="number">10</span>*n+<span class="number">1</span>,z,<span class="number">0</span>);</span><br><span class="line">		jb2(i,i+<span class="number">2</span>*n,z,x-y);jb2(i+<span class="number">2</span>*n,<span class="number">10</span>*n+<span class="number">2</span>,z,<span class="number">0</span>);</span><br><span class="line">		jb2(i,i+<span class="number">3</span>*n,z,-x+y);jb2(i+<span class="number">3</span>*n,<span class="number">10</span>*n+<span class="number">3</span>,z,<span class="number">0</span>);</span><br><span class="line">		jb2(i,i+<span class="number">4</span>*n,z,-x-y);jb2(i+<span class="number">4</span>*n,<span class="number">10</span>*n+<span class="number">4</span>,z,<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lld%lld%lld"</span>,&amp;x,&amp;y,&amp;z);</span><br><span class="line">		jb2(i+<span class="number">5</span>*n,t,z,<span class="number">0</span>);</span><br><span class="line">		jb2(i+<span class="number">6</span>*n,i+<span class="number">5</span>*n,z,-x-y);jb2(<span class="number">10</span>*n+<span class="number">1</span>,i+<span class="number">6</span>*n,z,<span class="number">0</span>);</span><br><span class="line">		jb2(i+<span class="number">7</span>*n,i+<span class="number">5</span>*n,z,-x+y);jb2(<span class="number">10</span>*n+<span class="number">2</span>,i+<span class="number">7</span>*n,z,<span class="number">0</span>);</span><br><span class="line">		jb2(i+<span class="number">8</span>*n,i+<span class="number">5</span>*n,z,x-y);jb2(<span class="number">10</span>*n+<span class="number">3</span>,i+<span class="number">8</span>*n,z,<span class="number">0</span>);</span><br><span class="line">		jb2(i+<span class="number">9</span>*n,i+<span class="number">5</span>*n,z,x+y);jb2(<span class="number">10</span>*n+<span class="number">4</span>,i+<span class="number">9</span>*n,z,<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	mcmf();</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,-ansc);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://xuanyiming.github.io/2019/11/09/agc034d/" data-id="ck2rbqx910005vket86q9eqai" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" rel="tag">费用流</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/09/agc036d/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">agc036d</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/dp/" rel="tag">dp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/trie%E6%A0%91/" rel="tag">trie树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%84%E9%80%A0/" rel="tag">构造</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" rel="tag">费用流</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/dp/" style="font-size: 20px;">dp</a> <a href="/tags/trie%E6%A0%91/" style="font-size: 10px;">trie树</a> <a href="/tags/%E6%9E%84%E9%80%A0/" style="font-size: 10px;">构造</a> <a href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" style="font-size: 10px;">费用流</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/09/agc034d/">agc034d</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/09/agc036d/">agc036d</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/08/ccINVZCNT/">ccINVZCNT</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/07/agc034e/">agc034e</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/07/agc013d/">agc013d</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 xuanyiming<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!--script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
