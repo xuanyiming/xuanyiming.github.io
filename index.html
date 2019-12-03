@@ -83,22 +83,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a> 
-<p>有$n$个机场，$m$个航班，第$i$个航班为从$x_i$到$y_i$,第$D_i$时刻起飞。</p>
+        <p>有$n$个机场，$m$个航班，第$i$个航班为从$x_i$到$y_i$,第$D_i$时刻起飞。</p>
 <p>飞机到了$i$号机场要休息$P_i$个时间。</p>
-<!--more-->
-<p>从$i$号机场到$j$号机场要$T_{i,j}$个时间。</p>
-<p>第$0$时刻可以在任意机场放飞机。</p>
-<p>问最少一开使要放多少飞机。</p>
-<p>$n,m \leq 500$。</p>
-<p>先跑一下最短路。然后可以计算出$i$个航班后能否接$j$。</p>
-<p>然后是一个$DAG$最小路径覆盖问题。直接跑二分图最大匹配即可。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">505</span>;</span><br><span class="line"><span class="keyword">int</span> dis1[N][N],f[N],match[N],x[N],y[N],d[N],ne[N*N],tot,fi[N],n,m,P[N],zz[N*N],dis2[N][N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">jb</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">	ne[++tot]=fi[x];</span><br><span class="line">	fi[x]=tot;</span><br><span class="line">	zz[tot]=y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=fi[x];i;i=ne[i])</span><br><span class="line">		<span class="keyword">if</span> (!f[zz[i]])&#123;</span><br><span class="line">			f[zz[i]]=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span> (!match[zz[i]]||dfs(match[zz[i]]))&#123;</span><br><span class="line">				match[zz[i]]=x;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;P[i]);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;dis1[i][j]);</span><br><span class="line">			dis1[i][j]+=P[j];</span><br><span class="line">			<span class="keyword">if</span> (i==j)dis1[i][j]=<span class="number">0</span>;</span><br><span class="line">			dis2[i][j]=dis1[i][j];</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;x[i],&amp;y[i],&amp;d[i]);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=n;k++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">				dis2[i][j]=<span class="built_in">min</span>((ll)dis2[i][j],(ll)dis2[i][k]+dis2[k][j]);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=m;j++)</span><br><span class="line">			<span class="keyword">if</span> (d[j]&gt;=(ll)d[i]+dis1[x[i]][y[i]]+dis2[y[i]][x[j]])jb(i,j);</span><br><span class="line">	<span class="keyword">int</span> ans=m;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">		<span class="built_in">memset</span>(f,<span class="number">0</span>,<span class="keyword">sizeof</span> f);</span><br><span class="line">		ans-=dfs(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/12/02/loj2077/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuanyiming.github.io/2019/12/02/loj2077/" data-id="ck3phxiqg0008wset033le2n1" class="article-share-link">Share</a>
+      <a data-url="http://xuanyiming.github.io/2019/12/02/loj2077/" data-id="ck3phzry1000fdwet9v0h8l12" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E5%9B%BE%E5%8C%B9%E9%85%8D/" rel="tag">二分图匹配</a></li></ul>
@@ -141,7 +136,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuanyiming.github.io/2019/11/09/agc034d/" data-id="ck3phxiqb0003wsete7tyc1rm" class="article-share-link">Share</a>
+      <a data-url="http://xuanyiming.github.io/2019/11/09/agc034d/" data-id="ck3phzrxo0001dwet0g9s0vab" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" rel="tag">费用流</a></li></ul>
@@ -184,7 +179,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuanyiming.github.io/2019/11/09/agc036d/" data-id="ck3phxiqc0004wsetg5h781eu" class="article-share-link">Share</a>
+      <a data-url="http://xuanyiming.github.io/2019/11/09/agc036d/" data-id="ck3phzrxw0008dwetdpfkctdx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dp/" rel="tag">dp</a></li></ul>
@@ -227,7 +222,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuanyiming.github.io/2019/11/08/cc%20nov%20%E6%9C%88%E8%B5%9B/" data-id="ck3phxiqt000iwset9yde5ye4" class="article-share-link">Share</a>
+      <a data-url="http://xuanyiming.github.io/2019/11/08/cc%20nov%20%E6%9C%88%E8%B5%9B/" data-id="ck3phzrxy000adwetb2ix7rnv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cc-nov%E6%9C%88%E8%B5%9B/" rel="tag">cc nov月赛</a></li></ul>
@@ -270,7 +265,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuanyiming.github.io/2019/11/08/ccINVZCNT/" data-id="ck3phxiqe0005wset9zgjb7jy" class="article-share-link">Share</a>
+      <a data-url="http://xuanyiming.github.io/2019/11/08/ccINVZCNT/" data-id="ck3phzry0000ddwet9ry13q7t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/trie%E6%A0%91/" rel="tag">trie树</a></li></ul>
@@ -314,7 +309,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuanyiming.github.io/2019/11/07/agc034e/" data-id="ck3phxiq20000wset4etbgsxc" class="article-share-link">Share</a>
+      <a data-url="http://xuanyiming.github.io/2019/11/07/agc034e/" data-id="ck3phzrxu0005dwetfj3f1e6d" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dp/" rel="tag">dp</a></li></ul>
@@ -358,7 +353,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuanyiming.github.io/2019/11/07/agc013d/" data-id="ck3phxiq80001wsetehcy49pa" class="article-share-link">Share</a>
+      <a data-url="http://xuanyiming.github.io/2019/11/07/agc013d/" data-id="ck3phzrxh0000dweth9hygv32" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dp/" rel="tag">dp</a></li></ul>
@@ -403,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuanyiming.github.io/2019/11/06/agc027d/" data-id="ck3phxiqv000kwset9mlz52bv" class="article-share-link">Share</a>
+      <a data-url="http://xuanyiming.github.io/2019/11/06/agc027d/" data-id="ck3phzrxs0003dwet05lqalzx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dp/" rel="tag">dp</a></li></ul>
@@ -447,7 +442,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuanyiming.github.io/2019/11/05/agc032d/" data-id="ck3phxiqr000hwset5gwr0mx8" class="article-share-link">Share</a>
+      <a data-url="http://xuanyiming.github.io/2019/11/05/agc032d/" data-id="ck3phzrxt0004dwet3y9aa7jp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9E%84%E9%80%A0/" rel="tag">构造</a></li></ul>
